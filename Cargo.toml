@@ -1,16 +1,23 @@
 [package]
 name = "SwiftyRipgrep"
-version = "0.1.0"
+version = "15.2.0"
 edition = "2021"
+rust-version = "1.85"
 
 [lib]
 name = "SwiftyRipgrep"
 crate-type = [ "staticlib" ]
 
 [build-dependencies]
-swift-bridge-build = "0.1"
+swift-bridge-build = "0.1.59"
 
 [dependencies]
-grep = "0.2"
-swift-bridge = "0.1"
-ripgrep = "13.0.0"
+swift-bridge = "0.1.59"
+grep-regex = "0.1.14"
+grep-searcher = "0.1.16"
+grep-printer = "0.3.1"
+ignore = "0.4.29"
+serde_json = "1.0"
+
+[dev-dependencies]
+tempfile = "3"

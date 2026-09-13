@@ -4,7 +4,6 @@ require 'tmpdir'
 require "toml"
 require "open3"
 require "fileutils"
-require "debug"
 require "rainbow/refinement"
 using Rainbow
 
@@ -79,6 +78,10 @@ run_command([
 
 Dir.glob(File.join(package_sources_path, "**/*.swift")).each do |source_file|
   next if source_file.include?("Public")
+  # SwiftBridgeCore.swift contains Swift protocol conformances (e.g. Equatable,
+  # Identifiable) whose requirements must stay `public`; internalizing it breaks
+  # those conformances. Only the bridge-specific file needs to be internalized.
+  next if File.basename(source_file) == "SwiftBridgeCore.swift"
   content = File.read(source_file)
   content.gsub!("public", "internal")
   File.write(source_file, content)
